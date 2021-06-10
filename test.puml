@@ -1,0 +1,19 @@
+@startuml Схема интеграционного взаимодействия получения IP по перс. данным
+
+loop Каждые 15 минут
+activate edo_a
+edo_a -> sowa++: Обращение за списком \nметаданных \nзапросов от МВД
+deactivate edo_a
+sowa ->edo_s++: Обращение за списком \nметаданных \nзапросов от МВД
+deactivate sowa
+edo_s -> mvd++: Обращение за списком \nметаданных \nзапросов от МВД \n("/v1.0/request" / "get")
+deactivate edo_s
+mvd -> edo_s++: Получение списка \n("response")
+deactivate mvd
+edo_s -> sowa++: Передача списка \nметаданных \nзапросов МВД в \nЭДОсГО Alpha ()
+deactivate edo_s
+sowa -> edo_a++: Передача списка \nметаданных \nзапросов МВД в \nЭДОсГО Alpha ()
+deactivate sowa
+end
+
+@enduml
