@@ -1,0 +1,47 @@
+@startuml Ответ в МВД
+
+note right edo_a
+    ЭДОсГО (alpha)
+end note
+note right sowa
+    SOWA
+end note
+note over edo_s
+    ЭДОсГО (sigma)
+end note
+note over mega_s
+    МегаЦУКС (Sigma)
+end note
+edo_a -> edo_a: Формирование \nсопроводительного \nписьма (pdf)
+edo_a -> edo_a: Формирование ответа: \nПодпись Хэша \n+ шифрованный ответ
+edo_a -> sowa++: Передача ответа \nна запрос
+sowa -> edo_s++: Передача ответа \nна запрос
+edo_s --> sowa: OK
+sowa --> edo_a: OK
+deactivate edo_a
+deactivate sowa
+edo_s -> mega_s++: Сопроводительное \nписьмо на подпись
+deactivate edo_s
+mega_s -> mega_s: Подписание \nсопр.письма
+mega_s -> edo_s++: Подписанное \nсопр. письмо
+deactivate mega_s
+edo_s -> edo_s: Формирование \nполного ответа
+edo_s -> mvd++: Ответ в МВД
+mvd --> edo_s: Квитанция
+deactivate mvd
+edo_s -> sowa++: Квитанция
+deactivate edo_s
+sowa -> edo_a++: Квитанция
+deactivate sowa
+edo_a -> sowa++: Запрос на удаление из \nочереди полученного \nзапроса ()
+sowa -> edo_s++: Запрос на удаление из \nочереди полученного \nзапроса ()
+deactivate sowa
+edo_s -> mvd++: Запрос на удаление из \nочереди полученного \nзапроса ("delete")
+mvd --> edo_s: Ответ об успешном \nудалении ("response")
+deactivate mvd
+edo_s --> sowa++: Ответ об успешном \nудалении ()
+deactivate edo_s
+sowa --> edo_a: Ответ об успешном \nудалении ()
+end
+
+@enduml

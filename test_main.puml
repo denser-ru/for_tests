@@ -1,0 +1,30 @@
+@startuml Схема интеграционного взаимодействия получения IP по перс. данным
+
+' Загрузка стилей
+!includeurl https://raw.githubusercontent.com/denser-ru/for_tests/main/test_styles_1.puml
+
+alt Запрос в МВД
+!includeurl https://raw.githubusercontent.com/denser-ru/for_tests/main/test_to_mvd.puml
+end
+
+alt Проверка в МегаЦУКС
+!includeurl https://raw.githubusercontent.com/denser-ru/for_tests/main/test_to_mega_from_mvd.puml
+end
+
+alt Передача файлов МВД из Сигмы в Альфу
+!includeurl https://raw.githubusercontent.com/denser-ru/for_tests/main/test_send_files_from_s_to_a.puml
+end
+
+alt Запросы в ККАФ
+!includeurl https://raw.githubusercontent.com/denser-ru/for_tests/main/test_to_kkaf.puml
+end
+
+alt Шифрование в МегаЦУКС
+!includeurl https://raw.githubusercontent.com/denser-ru/for_tests/main/test_to_mega_from_edo_a.puml
+end
+
+alt Запрос в МВД
+!includeurl https://raw.githubusercontent.com/denser-ru/for_tests/main/test_ans_to_mvd.puml
+end
+
+@enduml

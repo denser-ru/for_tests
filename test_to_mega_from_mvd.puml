@@ -1,0 +1,25 @@
+@startuml Проверка подписей и ХЭШей МВД в МугаЦУКСе
+
+edo_s -> mega_s++: Подпись и ХЭШ на проверку
+deactivate edo_s
+mega_s -> mega_s: Проверка \nХеша
+note over edo_s
+    ЭДОсГО (sigma)
+end note
+note over sowa
+    SOWA
+end note
+note over edo_a
+    ЭДОсГО (alpha)
+end note
+mega_s ->edo_s++: Результат проверки
+deactivate mega_s
+note over mega_s
+    МегаЦУКС (Sigma)
+end note
+edo_s --> sowa++: Уведомление о статусе \nпроверки ЭЦП ()
+sowa --> edo_a++: Уведомление о статусе \nпроверки ЭЦП ()
+deactivate sowa
+deactivate edo_a
+
+@enduml

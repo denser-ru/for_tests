@@ -1,0 +1,33 @@
+@startuml Передача файлов МВД из Сигмы в Альфу
+
+edo_s -> sowa++: Передача файлов \nзапроса в \nрасшифрованном виде ()
+sowa -> edo_a++: Передача файлов \nзапроса в \nрасшифрованном виде ()
+deactivate sowa
+edo_s --> mvd++: Отправка квитанции Банком о \nпринятии \nзапроса/ ошибке запроса \n("/v1.0/request/{id}/ticket" / \n"post")
+note over sowa
+    SOWA
+end note
+deactivate edo_s
+mvd --> edo_s++: Ответ о транспортной доставке \n("response")
+deactivate mvd
+edo_s --> sowa++: Ответ о транспортной \nдоставке
+note over mvd
+    Шлюз ГО
+end note
+note over edo_s
+    ЭДОсГО (sigma)
+end note
+deactivate edo_s
+sowa --> edo_a: Ответ о транспортной \nдоставке
+deactivate sowa
+note right edo_a
+    ЭДОсГО (alpha)
+end note
+note right syn
+    Synapse
+end note
+note right bhb
+    БХБ
+end note
+
+@enduml

@@ -1,6 +1,6 @@
-@startuml Схема интеграционного взаимодействия получения IP по перс. данным
+@startuml
 
-' loop Каждые 15 минут
+loop Каждые 15 минут
 activate edo_a
 edo_a -> sowa++: Обращение за списком \nметаданных \nзапросов от МВД
 deactivate edo_a
@@ -14,6 +14,44 @@ edo_s -> sowa++: Передача списка \nметаданных \nзапр
 deactivate edo_s
 sowa -> edo_a++: Передача списка \nметаданных \nзапросов МВД в \nЭДОсГО Alpha ()
 deactivate sowa
-' end
+end
+
+edo_a -> edo_a: Обработка списка, \nвзятие 1шт. в работу
+edo_a -> sowa++: Обращение за метаданными \nзапроса по ID ()
+deactivate edo_a
+sowa ->edo_s++: Обращение за \nметаданными \nзапроса по ID ()
+deactivate sowa
+edo_s -> mvd++: Обращение за метаданными \nзапроса по ID () \n("/v1.0/request/{id}" / "get")
+deactivate edo_s
+note over sowa
+    SOWA
+end note
+note over edo_a
+    ЭДОсГО (alpha)
+end note
+mvd -> edo_s++: Получение файлов xml, pdf \n("response")
+deactivate mvd
+edo_s -> sowa++: Получение метаданных
+deactivate edo_s
+sowa -> edo_a++: Получение метаданных
+deactivate sowa
+note over mvd
+    Шлюз ГО
+end note
+note over edo_s
+    ЭДОсГО (sigma)
+end note
+edo_a -> sowa++: Обращение за \nфайлами xml, pdf \nзапроса по ID ()
+deactivate edo_a
+sowa ->edo_s++: Обращение за \nфайлами xml, pdf \nзапроса по ID ()
+deactivate sowa
+edo_s -> mvd++: Обращение за файлами xml, pdf \nзапроса по ID () \n("/v1.0/request/{id}/content/ \n{contentId}" / "get")
+deactivate edo_s
+mvd -> edo_s++: Получение файлов \n("response")
+deactivate mvd
+edo_s --> sowa++: Уведомление о \nполучении файлов ()
+sowa --> edo_a++: Уведомление о \nполучении файлов ()
+deactivate sowa
+deactivate edo_a
 
 @enduml

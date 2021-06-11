@@ -1,0 +1,69 @@
+@startuml Запросы в ККАФ
+
+
+edo_a -> syn++: Запроса \nпоиска IP \nпо перс. данным
+syn -> bhb++: Передача запроса \nпоиска IP \nпо перс. данным
+bhb -> bhb: Формирование запроса \nи сохранение в БД
+deactivate syn
+skinparam SequenceGroupBodyBackgroundColor E0E0F050
+par параллельно выполняемый блок 1
+loop Для каждого IP в запросе
+note over kkaf
+    ККАФ
+end note
+bhb -> syn++: Поиск IP \nпо перс. данным
+deactivate bhb
+syn -> kkaf++: Поиск IP \nпо перс. данным
+deactivate syn
+kkaf -> kkaf: Постановка \nзапроса в очередь
+kkaf -> kkaf: Обработка запросов \nв очереди
+kkaf -> syn++: Квитанция
+deactivate kkaf
+syn -> bhb++: Квитанция
+deactivate syn
+bhb -> syn++: Квитанция
+deactivate bhb
+syn -> edo_a: Квитанция
+end
+deactivate syn
+
+else параллельно выполняемый блок 2
+loop Ежедневно в 6 утра
+note right edo_a
+    ЭДОсГО (alpha)
+end note
+note right syn
+    Synapse
+end note
+note right bhb
+    БХБ
+end note
+note over kkaf
+    ККАФ
+end note
+edo_a -> syn++: Запрос ответов ККАФ \nпоиска IP \nпо перс. данным
+syn -> bhb++: Передача запроса \nответов ККАФ \nпоиска IP \nпо перс. данным
+bhb -> bhb: Передача запроса
+deactivate syn
+bhb -> syn++: Передача запроса
+deactivate bhb
+syn -> kkaf++: Передача запроса
+deactivate syn
+kkaf -> kkaf: Формирование \nготовых \nответов
+kkaf -> syn++: Ответы
+deactivate kkaf
+syn -> bhb++: Передача ответов
+deactivate syn
+bhb -> syn++: Передача ответов
+deactivate bhb
+syn -> edo_a: Передача ответов
+end
+deactivate syn
+else параллельно выполняемый блок 3 \nЕсли есть ответы со статусом "в процессе"
+loop Каждые 5 минут \nПока есть овтеты со статусом "в процессе" \nНо не более 100 обращений
+edo_a ->edo_a: Повторить блок 2
+end
+skinparam SequenceGroupBodyBackgroundColor FFFFFF88
+
+
+@enduml

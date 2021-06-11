@@ -1,0 +1,13 @@
+@startuml
+
+edo_a -> sowa++: Запрос на подпись ХЭШ в МВД
+deactivate edo_a
+sowa -> mega_s++: Запрос на подпись ХЭШ в МВД
+deactivate sowa
+mega_s -> mega_s: Подписание ХЭШа \nи ответа
+mega_s -> sowa++: Ответ с подписанным сообщением
+deactivate mega_s
+sowa -> edo_a++: Ответ с подписанным сообщением
+deactivate sowa
+
+@enduml

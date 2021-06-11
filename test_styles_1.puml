@@ -1,0 +1,27 @@
+@startuml Стили для диаграммы запросов IP
+
+skinparam ParticipantBorderColor #885A89
+skinparam ParticipantBackgroundColor #D1B490
+skinparam SequenceBoxBorderColor #885A89
+skinparam SequenceGroupBodyBackgroundColor FFFFFF88
+
+autonumber
+
+skinparam NoteFontColor #00000080
+skinparam NoteBorderColor #885A8930
+skinparam NoteBackgroundColor #D1B49030
+
+participant "Шлюз ГО" as mvd
+box Домен Sigma #CBCBD4
+participant "МегаЦУКС (Sigma)" as mega_s
+participant "ЭДОсГО (sigma)" as edo_s
+end box
+participant "SOWA" as sowa
+box Домен Alpha #8AA8A1
+participant "ЭДОсГО (alpha)" as edo_a
+participant "Synapse" as syn
+participant "БХБ" as bhb
+participant "ККАФ" as kkaf
+end box
+
+@enduml
