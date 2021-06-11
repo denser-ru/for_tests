@@ -64,6 +64,5 @@ loop Каждые 5 минут \nПока есть овтеты со стату�
 edo_a ->edo_a: Повторить блок 2
 end
 skinparam SequenceGroupBodyBackgroundColor FFFFFF88
-end
 
 @enduml
