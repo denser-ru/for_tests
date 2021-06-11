@@ -42,6 +42,5 @@ deactivate mvd
 edo_s --> sowa++: Ответ об успешном \nудалении ()
 deactivate edo_s
 sowa --> edo_a: Ответ об успешном \nудалении ()
-end
 
 @enduml
